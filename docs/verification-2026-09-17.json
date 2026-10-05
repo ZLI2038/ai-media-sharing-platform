@@ -1,0 +1,35 @@
+{
+  "date": "2026-09-17",
+  "scope": "Publication snapshot verification; local production bundle with ephemeral D1/R2 and stubbed OpenAI provider.",
+  "build": "passed",
+  "sourceFilesCheckedAgainstBuildManifest": 99,
+  "sourceHashMismatches": 0,
+  "environment": {
+    "node": "v24.19.0",
+    "platform": "darwin",
+    "arch": "arm64",
+    "cpu": "Apple M2 Pro",
+    "logicalCpus": 12,
+    "memoryGiB": 16,
+    "miniflare": "4.20260515.0",
+    "workerdCompatibilityDate": "2026-05-15",
+    "application": ".bench/app",
+    "sourceCommit": "working-tree"
+  },
+  "integrationChecks": {
+    "checks": 50,
+    "passed": 50,
+    "failed": 0
+  },
+  "validMediaChecks": {
+    "passed": 6,
+    "failed": 0
+  },
+  "failureInjection": {
+    "requests": 50,
+    "orphanObjects": 0,
+    "orphanRows": 0
+  },
+  "clientSecretSentinelMatches": 0,
+  "note": "Archived README latency figures refer to the dated 2026-09-08 experiment. This rerun verifies the portable harness and publication snapshot."
+}

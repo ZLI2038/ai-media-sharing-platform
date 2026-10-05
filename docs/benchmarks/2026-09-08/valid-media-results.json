@@ -1,0 +1,57 @@
+{
+  "scope": "Additional production-built route checks with independently decoded PNG and MP4 fixtures, not live cloud tests.",
+  "checks": [
+    {
+      "mime": "image/png",
+      "size": 26214399,
+      "decodeVerified": true,
+      "status": 201,
+      "roundTripSha256Match": true,
+      "passed": true
+    },
+    {
+      "mime": "image/png",
+      "size": 26214400,
+      "decodeVerified": true,
+      "status": 201,
+      "roundTripSha256Match": true,
+      "passed": true
+    },
+    {
+      "mime": "image/png",
+      "size": 26214401,
+      "decodeVerified": true,
+      "status": 400,
+      "roundTripSha256Match": null,
+      "passed": true
+    },
+    {
+      "mime": "video/mp4",
+      "size": 26214399,
+      "decodeVerified": true,
+      "status": 201,
+      "roundTripSha256Match": true,
+      "passed": true
+    },
+    {
+      "mime": "video/mp4",
+      "size": 26214400,
+      "decodeVerified": true,
+      "status": 201,
+      "roundTripSha256Match": true,
+      "passed": true
+    },
+    {
+      "mime": "video/mp4",
+      "size": 26214401,
+      "decodeVerified": true,
+      "status": 400,
+      "roundTripSha256Match": null,
+      "passed": true
+    }
+  ],
+  "summary": {
+    "passed": 6,
+    "failed": 0
+  }
+}

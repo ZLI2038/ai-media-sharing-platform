@@ -1,0 +1,10 @@
+elasticsearch:
+  address: "YOUR_ELASTICSEARCH_ADDRESS"
+  username: "YOUR_ELASTICSEARCH_USERNAME"
+  password: "YOUR_ELASTICSEARCH_PASSWORD"
+
+gcs:
+  bucket: "YOUR_GCS_BUCKET_NAME"
+
+token:
+  secret: "secret"

@@ -1,0 +1,799 @@
+{
+  "startedAt": "2026-09-09T04:17:46.974Z",
+  "environment": {
+    "node": "v24.19.0",
+    "platform": "darwin",
+    "arch": "arm64",
+    "cpu": "Apple M2 Pro",
+    "logicalCpus": 12,
+    "memoryGiB": 16,
+    "miniflare": "4.20260515.0",
+    "workerdCompatibilityDate": "2026-05-15",
+    "application": "<isolated-build>",
+    "sourceCommit": "180b319a81af5543adc0cdac267e62cfd107f0a7"
+  },
+  "methodology": "Production-built application including its real Vinext route dispatcher; local workerd, D1 and R2 emulation, ephemeral storage. External AI responses are stubbed. No cloud measurements.",
+  "checks": [
+    {
+      "name": "Create two accounts with the same password",
+      "category": "setup",
+      "passed": true,
+      "elapsedMs": 120.00070800000003
+    },
+    {
+      "name": "Authenticate both accounts",
+      "category": "setup",
+      "passed": true,
+      "elapsedMs": 65.23225000000002
+    },
+    {
+      "name": "Independent password derivation and random salts",
+      "category": "crypto",
+      "passed": true,
+      "elapsedMs": 73.33020899999997,
+      "detail": {
+        "accounts": 2,
+        "saltBits": 128,
+        "derivedKeyBits": 256,
+        "independentlyVerifiedIterations": 100000
+      }
+    },
+    {
+      "name": "JWT signature and expiry interval",
+      "category": "crypto",
+      "passed": true,
+      "elapsedMs": 16.671875,
+      "detail": {
+        "ttlSeconds": 86400,
+        "ttlHours": 24,
+        "signatureVerifiedIndependently": true
+      }
+    },
+    {
+      "name": "Wrong password is rejected",
+      "category": "authorization",
+      "passed": true,
+      "elapsedMs": 14.562415999999985
+    },
+    {
+      "name": "Unknown account is rejected",
+      "category": "authorization",
+      "passed": true,
+      "elapsedMs": 4.629708000000164
+    },
+    {
+      "name": "Reject missing token on protected operations",
+      "category": "authorization",
+      "passed": true,
+      "elapsedMs": 16.31320800000003,
+      "detail": {
+        "requests": 4,
+        "statuses": [
+          401,
+          401,
+          401,
+          401
+        ]
+      }
+    },
+    {
+      "name": "Reject expired token on protected operations",
+      "category": "authorization",
+      "passed": true,
+      "elapsedMs": 31.78495799999996,
+      "detail": {
+        "requests": 4,
+        "statuses": [
+          401,
+          401,
+          401,
+          401
+        ]
+      }
+    },
+    {
+      "name": "Reject expiry at current second on protected operations",
+      "category": "authorization",
+      "passed": true,
+      "elapsedMs": 8.007958000000144,
+      "detail": {
+        "requests": 4,
+        "statuses": [
+          401,
+          401,
+          401,
+          401
+        ]
+      }
+    },
+    {
+      "name": "Reject tampered payload on protected operations",
+      "category": "authorization",
+      "passed": true,
+      "elapsedMs": 4.668250000000171,
+      "detail": {
+        "requests": 4,
+        "statuses": [
+          401,
+          401,
+          401,
+          401
+        ]
+      }
+    },
+    {
+      "name": "Reject invalid signature on protected operations",
+      "category": "authorization",
+      "passed": true,
+      "elapsedMs": 8.14449999999988,
+      "detail": {
+        "requests": 4,
+        "statuses": [
+          401,
+          401,
+          401,
+          401
+        ]
+      }
+    },
+    {
+      "name": "Reject malformed token on protected operations",
+      "category": "authorization",
+      "passed": true,
+      "elapsedMs": 7.934166000000005,
+      "detail": {
+        "requests": 4,
+        "statuses": [
+          401,
+          401,
+          401,
+          401
+        ]
+      }
+    },
+    {
+      "name": "Non-owner deletion preserves both metadata and object",
+      "category": "authorization",
+      "passed": true,
+      "elapsedMs": 38.87937500000021
+    },
+    {
+      "name": "Valid owner can delete both metadata and object",
+      "category": "authorization-positive",
+      "passed": true,
+      "elapsedMs": 24.85149999999976
+    },
+    {
+      "name": "Legacy signup preserves success/duplicate contracts",
+      "category": "legacy",
+      "passed": true,
+      "elapsedMs": 19.62308299999995
+    },
+    {
+      "name": "Legacy signin returns a plain-text bearer token",
+      "category": "legacy",
+      "passed": true,
+      "elapsedMs": 13.871582999999646
+    },
+    {
+      "name": "Legacy upload preserves empty 200 response",
+      "category": "legacy",
+      "passed": true,
+      "elapsedMs": 7.252666999999747
+    },
+    {
+      "name": "Legacy search returns persisted posts and required fields",
+      "category": "legacy",
+      "passed": true,
+      "elapsedMs": 6.930417000000034
+    },
+    {
+      "name": "Legacy deletion enforces ownership and empty 200 response",
+      "category": "legacy",
+      "passed": true,
+      "elapsedMs": 15.56729200000018
+    },
+    {
+      "name": "All five legacy endpoints answer CORS preflight",
+      "category": "legacy-preflight",
+      "passed": true,
+      "elapsedMs": 13.028541999999561,
+      "detail": {
+        "endpoints": 5
+      }
+    },
+    {
+      "name": "Upload image/png size 0",
+      "category": "upload-boundary",
+      "passed": true,
+      "elapsedMs": 20.65033399999993,
+      "detail": {
+        "mime": "image/png",
+        "size": 0,
+        "status": 400,
+        "roundTripByteIntegrity": false,
+        "uploadResponseMs": 6.239416000000347
+      }
+    },
+    {
+      "name": "Upload image/png size 1",
+      "category": "upload-boundary",
+      "passed": true,
+      "elapsedMs": 29.531792000000223,
+      "detail": {
+        "mime": "image/png",
+        "size": 1,
+        "status": 201,
+        "roundTripByteIntegrity": true,
+        "uploadResponseMs": 7.435750000000098
+      }
+    },
+    {
+      "name": "Upload image/png size 26214399",
+      "category": "upload-boundary",
+      "passed": true,
+      "elapsedMs": 783.2167079999999,
+      "detail": {
+        "mime": "image/png",
+        "size": 26214399,
+        "status": 201,
+        "roundTripByteIntegrity": true,
+        "uploadResponseMs": 464.4180419999998
+      }
+    },
+    {
+      "name": "Upload image/png size 26214400",
+      "category": "upload-boundary",
+      "passed": true,
+      "elapsedMs": 671.6568750000001,
+      "detail": {
+        "mime": "image/png",
+        "size": 26214400,
+        "status": 201,
+        "roundTripByteIntegrity": true,
+        "uploadResponseMs": 395.579667
+      }
+    },
+    {
+      "name": "Upload image/png size 26214401",
+      "category": "upload-boundary",
+      "passed": true,
+      "elapsedMs": 69.4677499999998,
+      "detail": {
+        "mime": "image/png",
+        "size": 26214401,
+        "status": 400,
+        "roundTripByteIntegrity": false,
+        "uploadResponseMs": 60.31812500000024
+      }
+    },
+    {
+      "name": "Upload video/mp4 size 0",
+      "category": "upload-boundary",
+      "passed": true,
+      "elapsedMs": 6.468083000000206,
+      "detail": {
+        "mime": "video/mp4",
+        "size": 0,
+        "status": 400,
+        "roundTripByteIntegrity": false,
+        "uploadResponseMs": 1.5039159999996627
+      }
+    },
+    {
+      "name": "Upload video/mp4 size 1",
+      "category": "upload-boundary",
+      "passed": true,
+      "elapsedMs": 15.754292000000078,
+      "detail": {
+        "mime": "video/mp4",
+        "size": 1,
+        "status": 201,
+        "roundTripByteIntegrity": true,
+        "uploadResponseMs": 3.885667000000012
+      }
+    },
+    {
+      "name": "Upload video/mp4 size 26214399",
+      "category": "upload-boundary",
+      "passed": true,
+      "elapsedMs": 589.0617499999998,
+      "detail": {
+        "mime": "video/mp4",
+        "size": 26214399,
+        "status": 201,
+        "roundTripByteIntegrity": true,
+        "uploadResponseMs": 325.1141669999997
+      }
+    },
+    {
+      "name": "Upload video/mp4 size 26214400",
+      "category": "upload-boundary",
+      "passed": true,
+      "elapsedMs": 617.2852919999996,
+      "detail": {
+        "mime": "video/mp4",
+        "size": 26214400,
+        "status": 201,
+        "roundTripByteIntegrity": true,
+        "uploadResponseMs": 341.6918749999995
+      }
+    },
+    {
+      "name": "Upload video/mp4 size 26214401",
+      "category": "upload-boundary",
+      "passed": true,
+      "elapsedMs": 104.29575000000023,
+      "detail": {
+        "mime": "video/mp4",
+        "size": 26214401,
+        "status": 400,
+        "roundTripByteIntegrity": false,
+        "uploadResponseMs": 88.01525000000038
+      }
+    },
+    {
+      "name": "Non-media MIME is rejected without persistence",
+      "category": "upload-validation",
+      "passed": true,
+      "elapsedMs": 1.6695830000007845
+    },
+    {
+      "name": "Message length boundary is enforced",
+      "category": "upload-validation",
+      "passed": true,
+      "elapsedMs": 17.067917000000307,
+      "detail": {
+        "acceptedCharacters": 500,
+        "rejectedCharacters": 501
+      }
+    },
+    {
+      "name": "Fifty injected database insert failures leave no orphan objects",
+      "category": "failure-cleanup",
+      "passed": true,
+      "elapsedMs": 447.7948329999999,
+      "detail": {
+        "injectedFailures": 50,
+        "http500Responses": 50,
+        "orphanObjects": 0,
+        "orphanRows": 0,
+        "latency": {
+          "n": 50,
+          "p50Ms": 4.026124999999411,
+          "p95Ms": 7.701750000000175,
+          "p99Ms": 11.082875000000058,
+          "meanMs": 4.519341619999905,
+          "minMs": 3.268167000000176,
+          "maxMs": 11.082875000000058
+        }
+      }
+    },
+    {
+      "name": "Recovery after injected failures allows successful upload",
+      "category": "failure-recovery",
+      "passed": true,
+      "elapsedMs": 7.4962500000001455
+    },
+    {
+      "name": "Media cache headers and conditional response behavior",
+      "category": "media-cache",
+      "passed": true,
+      "elapsedMs": 12.361582999999882,
+      "detail": {
+        "cacheControl": "public, max-age=3600, stale-while-revalidate=86400",
+        "etagPresent": true,
+        "conditionalStatus": 200,
+        "conditionalBodyBytes": 68,
+        "originalBodyBytes": 68
+      }
+    },
+    {
+      "name": "AI proxy success preserves response and uses server-only credential",
+      "category": "ai-proxy",
+      "passed": true,
+      "elapsedMs": 25.55224999999973,
+      "detail": {
+        "realProviderCall": false,
+        "stubbedProviderCalls": 1,
+        "generatedFixtureBytes": 68
+      }
+    },
+    {
+      "name": "AI upstream 401 maps to 502",
+      "category": "ai-proxy",
+      "passed": true,
+      "elapsedMs": 4.41766699999971
+    },
+    {
+      "name": "AI upstream 429 maps to 502",
+      "category": "ai-proxy",
+      "passed": true,
+      "elapsedMs": 2.36395900000025
+    },
+    {
+      "name": "AI upstream 500 maps to 502",
+      "category": "ai-proxy",
+      "passed": true,
+      "elapsedMs": 2.0462079999997513
+    },
+    {
+      "name": "AI response missing image maps to 502",
+      "category": "ai-proxy",
+      "passed": true,
+      "elapsedMs": 1.9434999999994034
+    },
+    {
+      "name": "AI empty prompt is rejected without provider calls",
+      "category": "ai-proxy",
+      "passed": true,
+      "elapsedMs": 1.0309159999997064
+    },
+    {
+      "name": "AI invalid JSON is rejected without provider calls",
+      "category": "ai-proxy",
+      "passed": true,
+      "elapsedMs": 1.3358339999995223
+    },
+    {
+      "name": "AI missing key returns 503 without provider calls",
+      "category": "ai-proxy",
+      "passed": true,
+      "elapsedMs": 122.12866699999995
+    },
+    {
+      "name": "Scan production client JavaScript for test credential leakage",
+      "category": "client-bundle",
+      "passed": true,
+      "elapsedMs": 4.818166000000019,
+      "detail": {
+        "javascriptFiles": 7,
+        "javascriptBytes": 1023647,
+        "credentialMatches": 0,
+        "proxyPathPresent": true
+      }
+    },
+    {
+      "name": "Seed exactly 100000 searchable metadata rows",
+      "category": "dataset",
+      "passed": true,
+      "elapsedMs": 625.0728749999998,
+      "detail": {
+        "rows": 100000,
+        "authors": 1000,
+        "postsPerAuthor": 100,
+        "synthetic": true
+      }
+    },
+    {
+      "name": "Search correctness on seeded dataset including injection text",
+      "category": "search-correctness",
+      "passed": true,
+      "elapsedMs": 73.2661250000001,
+      "detail": {
+        "authorMatches": 100,
+        "eightTermMatches": 100,
+        "ninthTermIgnored": true,
+        "sqlInjectionTextResults": 0
+      }
+    },
+    {
+      "name": "Measure composite index against an unindexed control",
+      "category": "index-benchmark",
+      "passed": true,
+      "elapsedMs": 9510.197584000001,
+      "detail": {
+        "datasetRows": 100000,
+        "pairedQueries": 500,
+        "warmupQueriesPerVariant": 20,
+        "order": "alternating AB/BA",
+        "measurement": "D1 query plus local Node/workerd bridge; excludes HTTP route/auth/schema overhead",
+        "plans": {
+          "indexed": [
+            {
+              "id": 5,
+              "parent": 0,
+              "notused": 91,
+              "detail": "SEARCH posts USING INDEX idx_posts_user_created (user=?)"
+            }
+          ],
+          "control": [
+            {
+              "id": 4,
+              "parent": 0,
+              "notused": 182,
+              "detail": "SCAN posts"
+            },
+            {
+              "id": 23,
+              "parent": 0,
+              "notused": 0,
+              "detail": "USE TEMP B-TREE FOR ORDER BY"
+            }
+          ]
+        },
+        "indexed": {
+          "n": 500,
+          "p50Ms": 4.7025830000002316,
+          "p95Ms": 6.980750000000626,
+          "p99Ms": 11.320165999999517,
+          "meanMs": 5.099784260000024,
+          "minMs": 2.7776249999988067,
+          "maxMs": 62.14545799999905
+        },
+        "unindexed": {
+          "n": 500,
+          "p50Ms": 13.142499999999927,
+          "p95Ms": 16.487708999999086,
+          "p99Ms": 19.958583000001454,
+          "meanMs": 13.080104016000071,
+          "minMs": 8.486041000000114,
+          "maxMs": 57.1098750000001
+        },
+        "p95ReductionPercent": 57.660885451089584,
+        "p95Speedup": 2.361882175983613
+      }
+    },
+    {
+      "name": "End-to-end local handler latency author",
+      "category": "endpoint-benchmark",
+      "passed": true,
+      "elapsedMs": 737.3947500000013,
+      "detail": {
+        "n": 200,
+        "p50Ms": 2.7206659999974363,
+        "p95Ms": 5.095957999999882,
+        "p99Ms": 10.408792000000176,
+        "meanMs": 3.257059159999935,
+        "minMs": 1.831332999998267,
+        "maxMs": 18.637625000003027,
+        "warmupRequests": 20,
+        "concurrency": 1,
+        "rows": 100000
+      }
+    },
+    {
+      "name": "End-to-end local handler latency twoKeywords",
+      "category": "endpoint-benchmark",
+      "passed": true,
+      "elapsedMs": 1371.8803750000006,
+      "detail": {
+        "n": 200,
+        "p50Ms": 5.928624999996828,
+        "p95Ms": 8.057458999999653,
+        "p99Ms": 10.70233300000109,
+        "meanMs": 6.248685605000101,
+        "minMs": 5.040124999999534,
+        "maxMs": 23.277790999996796,
+        "warmupRequests": 20,
+        "concurrency": 1,
+        "rows": 100000
+      }
+    },
+    {
+      "name": "End-to-end local handler latency noMatch",
+      "category": "endpoint-benchmark",
+      "passed": true,
+      "elapsedMs": 9761.608958,
+      "detail": {
+        "n": 200,
+        "p50Ms": 43.01037499999802,
+        "p95Ms": 55.17112500000076,
+        "p99Ms": 71.9991250000021,
+        "meanMs": 43.889570014999975,
+        "minMs": 32.9854579999992,
+        "maxMs": 85.75858300000255,
+        "warmupRequests": 20,
+        "concurrency": 1,
+        "rows": 100000
+      }
+    }
+  ],
+  "limitations": [
+    "Media handler sends ETag but does not implement conditional 304 responses. Header TTL is not a measured cache hit-rate or bandwidth reduction.",
+    "Keyword search uses substring matching, caps input at eight terms and results at 100. It is not full-text indexed search; a ninth term is silently ignored.",
+    "25 MiB byte-boundary fixtures test transport, storage and round-trip integrity, not whether content is a valid playable video/image. MIME is supplied by the client, and the application does not inspect file signatures.",
+    "The AI provider is stubbed: no live generation latency, image-quality score or paid-provider throughput is claimed."
+  ],
+  "uploadBoundaries": [
+    {
+      "mime": "image/png",
+      "size": 0,
+      "status": 400,
+      "roundTripByteIntegrity": false,
+      "uploadResponseMs": 6.239416000000347
+    },
+    {
+      "mime": "image/png",
+      "size": 1,
+      "status": 201,
+      "roundTripByteIntegrity": true,
+      "uploadResponseMs": 7.435750000000098
+    },
+    {
+      "mime": "image/png",
+      "size": 26214399,
+      "status": 201,
+      "roundTripByteIntegrity": true,
+      "uploadResponseMs": 464.4180419999998
+    },
+    {
+      "mime": "image/png",
+      "size": 26214400,
+      "status": 201,
+      "roundTripByteIntegrity": true,
+      "uploadResponseMs": 395.579667
+    },
+    {
+      "mime": "image/png",
+      "size": 26214401,
+      "status": 400,
+      "roundTripByteIntegrity": false,
+      "uploadResponseMs": 60.31812500000024
+    },
+    {
+      "mime": "video/mp4",
+      "size": 0,
+      "status": 400,
+      "roundTripByteIntegrity": false,
+      "uploadResponseMs": 1.5039159999996627
+    },
+    {
+      "mime": "video/mp4",
+      "size": 1,
+      "status": 201,
+      "roundTripByteIntegrity": true,
+      "uploadResponseMs": 3.885667000000012
+    },
+    {
+      "mime": "video/mp4",
+      "size": 26214399,
+      "status": 201,
+      "roundTripByteIntegrity": true,
+      "uploadResponseMs": 325.1141669999997
+    },
+    {
+      "mime": "video/mp4",
+      "size": 26214400,
+      "status": 201,
+      "roundTripByteIntegrity": true,
+      "uploadResponseMs": 341.6918749999995
+    },
+    {
+      "mime": "video/mp4",
+      "size": 26214401,
+      "status": 400,
+      "roundTripByteIntegrity": false,
+      "uploadResponseMs": 88.01525000000038
+    }
+  ],
+  "failureCleanup": {
+    "injectedFailures": 50,
+    "http500Responses": 50,
+    "orphanObjects": 0,
+    "orphanRows": 0,
+    "latency": {
+      "n": 50,
+      "p50Ms": 4.026124999999411,
+      "p95Ms": 7.701750000000175,
+      "p99Ms": 11.082875000000058,
+      "meanMs": 4.519341619999905,
+      "minMs": 3.268167000000176,
+      "maxMs": 11.082875000000058
+    }
+  },
+  "mediaCache": {
+    "cacheControl": "public, max-age=3600, stale-while-revalidate=86400",
+    "etagPresent": true,
+    "conditionalStatus": 200,
+    "conditionalBodyBytes": 68,
+    "originalBodyBytes": 68
+  },
+  "clientBundle": {
+    "javascriptFiles": 7,
+    "javascriptBytes": 1023647,
+    "credentialMatches": 0,
+    "proxyPathPresent": true
+  },
+  "dataset": {
+    "rows": 100000,
+    "authors": 1000,
+    "postsPerAuthor": 100,
+    "synthetic": true
+  },
+  "indexBenchmark": {
+    "datasetRows": 100000,
+    "pairedQueries": 500,
+    "warmupQueriesPerVariant": 20,
+    "order": "alternating AB/BA",
+    "measurement": "D1 query plus local Node/workerd bridge; excludes HTTP route/auth/schema overhead",
+    "plans": {
+      "indexed": [
+        {
+          "id": 5,
+          "parent": 0,
+          "notused": 91,
+          "detail": "SEARCH posts USING INDEX idx_posts_user_created (user=?)"
+        }
+      ],
+      "control": [
+        {
+          "id": 4,
+          "parent": 0,
+          "notused": 182,
+          "detail": "SCAN posts"
+        },
+        {
+          "id": 23,
+          "parent": 0,
+          "notused": 0,
+          "detail": "USE TEMP B-TREE FOR ORDER BY"
+        }
+      ]
+    },
+    "indexed": {
+      "n": 500,
+      "p50Ms": 4.7025830000002316,
+      "p95Ms": 6.980750000000626,
+      "p99Ms": 11.320165999999517,
+      "meanMs": 5.099784260000024,
+      "minMs": 2.7776249999988067,
+      "maxMs": 62.14545799999905
+    },
+    "unindexed": {
+      "n": 500,
+      "p50Ms": 13.142499999999927,
+      "p95Ms": 16.487708999999086,
+      "p99Ms": 19.958583000001454,
+      "meanMs": 13.080104016000071,
+      "minMs": 8.486041000000114,
+      "maxMs": 57.1098750000001
+    },
+    "p95ReductionPercent": 57.660885451089584,
+    "p95Speedup": 2.361882175983613
+  },
+  "endpointBenchmarks": {
+    "author": {
+      "n": 200,
+      "p50Ms": 2.7206659999974363,
+      "p95Ms": 5.095957999999882,
+      "p99Ms": 10.408792000000176,
+      "meanMs": 3.257059159999935,
+      "minMs": 1.831332999998267,
+      "maxMs": 18.637625000003027,
+      "warmupRequests": 20,
+      "concurrency": 1,
+      "rows": 100000
+    },
+    "twoKeywords": {
+      "n": 200,
+      "p50Ms": 5.928624999996828,
+      "p95Ms": 8.057458999999653,
+      "p99Ms": 10.70233300000109,
+      "meanMs": 6.248685605000101,
+      "minMs": 5.040124999999534,
+      "maxMs": 23.277790999996796,
+      "warmupRequests": 20,
+      "concurrency": 1,
+      "rows": 100000
+    },
+    "noMatch": {
+      "n": 200,
+      "p50Ms": 43.01037499999802,
+      "p95Ms": 55.17112500000076,
+      "p99Ms": 71.9991250000021,
+      "meanMs": 43.889570014999975,
+      "minMs": 32.9854579999992,
+      "maxMs": 85.75858300000255,
+      "warmupRequests": 20,
+      "concurrency": 1,
+      "rows": 100000
+    }
+  },
+  "finishedAt": "2026-09-09T04:18:14.008Z",
+  "summary": {
+    "checks": 50,
+    "passed": 50,
+    "failed": 0
+  }
+}
